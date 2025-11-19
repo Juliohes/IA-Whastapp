@@ -1,0 +1,17 @@
+version: "3.9"
+
+services:
+  ia-whatsapp:
+    build: .
+    container_name: ia-whatsapp
+    restart: unless-stopped
+    # Si necesitas variables de entorno, aquí:
+    # env_file:
+    #   - .env
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true
+    name: infra_default
