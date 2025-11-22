@@ -1,24 +1,29 @@
 def GetTextUser(message):
-    text = ""
-    typeMessage = message["type"]  
+    """
+    Extrae el texto principal de un mensaje de WhatsApp (texto o interactivo).
+    Devuelve string vacío si no hay contenido manejable.
+    """
+    if not message:
+        return ""
 
+    typeMessage = message.get("type")
     if typeMessage == "text":
-        text = (message["text"])["body"]   
-    elif typeMessage == "interactive":
-        interactiveObject = message["interactive"]
-        interactiveType = interactiveObject["type"]
+        return (message.get("text") or {}).get("body", "")
+
+    if typeMessage == "interactive":
+        interactiveObject = message.get("interactive") or {}
+        interactiveType = interactiveObject.get("type")
 
         if interactiveType == "button_reply":
-            text = (interactiveObject["button_reply"])["title"]
-        elif interactiveType == "list_reply":
-            text = (interactiveObject["list_reply"])["title"]
-        else:
-            print("Sin mensaje")
-            
-    else:
-        print("Sin mensaje")
-    
-    return text
+            return (interactiveObject.get("button_reply") or {}).get("title", "")
+        if interactiveType == "list_reply":
+            return (interactiveObject.get("list_reply") or {}).get("title", "")
+
+        print("Sin mensaje interactivo reconocido")
+        return ""
+
+    print("Sin mensaje manejable (tipo no soportado)")
+    return ""
 
 def TextMessage(text, number):
     data = {

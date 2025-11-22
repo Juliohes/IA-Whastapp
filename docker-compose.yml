@@ -5,9 +5,13 @@ services:
     build: .
     container_name: ia-whatsapp
     restart: unless-stopped
-    # Si necesitas variables de entorno, aquí:
-    # env_file:
-    #   - .env
+    #ports:
+    #  - "8000:8000"
+    environment:
+      WHATSAPP_VERIFY_TOKEN: ${WHATSAPP_VERIFY_TOKEN:-320r7th34pg8y34hf9834f7934}
+      WHATSAPP_TOKEN: ${WHATSAPP_TOKEN:-EAAK2hRpoqgYBP9orK3Lq1LDhawzuuOpMoyulWL3a5e8Iy1glqv7JjbPOdrqyofhYXz9ZCauPMccYdfTqD4nohEdkZBE7YIZBAFv9nfehgFwCNAy83yZBY9o8W3SLrGFISAClqvDZAvaveM7qag9Rk9mUeJgjFnEvSnfZBn9Fx41AjpXsOlXw5CdIzNlUBbIVfsRAZDZD}
+      WHATSAPP_PHONE_ID: ${WHATSAPP_PHONE_ID:-878228345368187}
+      WHATSAPP_API_VERSION: ${WHATSAPP_API_VERSION:-v22.0}
     networks:
       - proxy
 
